@@ -81,13 +81,13 @@ draw_set_valign(fa_middle);
 draw_set_color($e1e1e1);
 
 draw_set_font(fnt_megrim_md);
-draw_text(x, y + sprite_height/2 + 18, '--Escape from Neo Nouveau City--');
+draw_text(x, y + sprite_height/2 + 18, '--Escape from Cyber City--');
 
 draw_set_font(fnt_megrim_sm);
-draw_text(x, y + sprite_height/2 + 46, '"No Visible Changes" Edition');
+draw_text(x, y + sprite_height/2 + 46, '"Sans Juice and Shop" Edition');
 
 draw_set_font(fnt_megrim);
-draw_text(x, view_hview/2 + 24, "Mouse to Aim, Left Click to Shoot");
+draw_text(x, view_hview/2 + 24, "Mouse to Aim, Click to Shoot");
 draw_text(x, view_hview/2 + 72, "Press Space to Start/Jump");
 draw_text(x, view_hview - 30, "Best Distance: " + string(global.best_dist) + "km");
 </string>

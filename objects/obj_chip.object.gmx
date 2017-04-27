@@ -25,7 +25,12 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>chip_speed = -(obj_bg_manager.scroll_speed - 5);
+            <string>t = irandom_range(0, 360);
+increment = 3;
+amplitude = 7
+ypos = y;;
+
+chip_speed = -(obj_bg_manager.scroll_speed - 5);
 
 chip_psystem = part_system_create();
 part_system_depth(chip_psystem, depth+1);
@@ -37,11 +42,11 @@ part_type_scale(particle_chip,1,1);
 part_type_color2(particle_chip,65535,10485760);
 part_type_alpha1(particle_chip,1);
 part_type_speed(particle_chip,chip_speed,chip_speed,0,0);
-part_type_direction(particle_chip,180,180,0,0);
-part_type_gravity(particle_chip,0.5,90);
+part_type_direction(particle_chip,90,90,0,0);
+part_type_gravity(particle_chip,0,90);
 part_type_orientation(particle_chip,0,0,0,0,1);
 part_type_blend(particle_chip,1);
-part_type_life(particle_chip,30,30);
+part_type_life(particle_chip,60,60);
 emitter_chip = part_emitter_create(chip_psystem);
 </string>
           </argument>
@@ -88,14 +93,20 @@ emitter_chip = part_emitter_create(chip_psystem);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>hspeed = global.time_passed * chip_speed;
+            <string>if (!global.pause) {
+    t = (t + increment) % 360;
+    shift = amplitude * dsin(t);
+    y = ypos + shift;
+}
+
+hspeed = global.time_passed * chip_speed;
 
 if (x &lt; -50) {
     instance_destroy();
 }
 
-part_emitter_region(chip_psystem,emitter_chip,x-sprite_get_width(spr_chip),x-sprite_get_width(spr_chip),
-                    y+sprite_get_height(spr_chip)/2,y+sprite_get_height(spr_chip),1,1);
+part_emitter_region(chip_psystem,emitter_chip,x-sprite_get_width(spr_chip),x+sprite_get_width(spr_chip),
+                    y,y+sprite_get_height(spr_chip),1,1);
 part_emitter_burst(chip_psystem,emitter_chip,particle_chip,1);
 </string>
           </argument>

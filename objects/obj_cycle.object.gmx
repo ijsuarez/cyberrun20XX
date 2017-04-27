@@ -26,6 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>grounded = false;
+jump_two = true;
 jump_angle = 45;
 base_height = abs(y - obj_ground.y);
 height_diff = base_height - abs(y - obj_ground.y);
@@ -36,6 +37,7 @@ vsp = 0;
 
 can_act = false;
 key_jump = false;
+invincible = false;
 
 has_started = false;
 
@@ -136,6 +138,29 @@ audio_stop_sound(snd_engine_loop);
 with (pod) {
     instance_destroy();
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="3">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>invincible = false;
 </string>
           </argument>
         </arguments>
@@ -287,7 +312,11 @@ with (pod) {
     //Jump
     if (grounded and key_jump) {
         grounded = false;
-        vsp -= jumpspeed;
+        vsp = -jumpspeed;
+        audio_play_sound(snd_jump, 0, false);
+    } else if (jump_two and vsp &gt; 0 and key_jump) {
+        jump_two = false;
+        vsp = -jumpspeed/2;
         audio_play_sound(snd_jump, 0, false);
     }
     
@@ -309,6 +338,7 @@ with (pod) {
     //Vertical Collision
     if (place_meeting(x,y+global.time_passed*vsp,obj_ground)) {
         grounded = true;
+        jump_two = true;
         while(!place_meeting(x,y+sign(vsp),obj_ground)) {
             y += sign(vsp);
         }
@@ -388,8 +418,10 @@ with (other) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>health -= 3;
-hit = true;
+            <string>if (!invincible) {
+    health -= 3;
+    hit = true;
+}
 with (other) {
     instance_destroy();
 }

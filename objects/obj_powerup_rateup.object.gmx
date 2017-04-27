@@ -49,7 +49,12 @@ image_index = 2;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>// fire laser instead of bullet
+            <string>// increase bullet rate/speed
+with (obj_pod_player) {
+    shot_rate = shot_rate / 2;
+    bullet_speed = bullet_speed * 1.5;
+    alarm[1] = global.powerup_length;
+}
 </string>
           </argument>
         </arguments>

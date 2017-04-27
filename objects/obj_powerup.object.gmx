@@ -27,6 +27,13 @@
             <kind>1</kind>
             <string>image_speed = 0;
 
+powerup_speed = -(obj_bg_manager.scroll_speed - 7);
+
+t = irandom_range(0, 360);
+increment = 4;
+amplitude = 10;
+ypos = y;
+
 chip_psystem = part_system_create();
 part_system_depth(chip_psystem, depth+1);
 
@@ -88,12 +95,20 @@ emitter_chip = part_emitter_create(chip_psystem);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (x &lt; -50) {
+            <string>if (!global.pause) {
+    t = (t + increment) % 360;
+    shift = amplitude * dsin(t);
+    y = ypos + shift;
+}
+
+hspeed = global.time_passed * powerup_speed;
+
+if (x &lt; -50) {
     instance_destroy();
 }
 
 part_emitter_region(chip_psystem,emitter_chip,x-sprite_get_width(spr_powerup),x+sprite_get_width(spr_powerup),
-                    y+sprite_get_height(spr_powerup)/4,y+sprite_get_height(spr_powerup),ps_shape_ellipse,2);
+                    y,y+sprite_get_height(spr_powerup),ps_shape_ellipse,2);
 part_emitter_burst(chip_psystem,emitter_chip,particle_chip,1);
 </string>
           </argument>

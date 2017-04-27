@@ -38,7 +38,6 @@ winx = window_get_x();
 winy = window_get_y();
 
 instance_create(0, 0, obj_bg_manager);
-instance_create(0, 0, obj_glitch_global);
 instance_create(0, 0, obj_glitch);
 instance_create(0, 0, obj_camera);
 
@@ -49,8 +48,11 @@ global.total_chips = ini_read_real("save0", "chips", 0);
 global.best_dist = ini_read_real("save0", "score", 0);
 global.powerup_length = ini_read_real("save0", "pwrlen", 180);
 global.max_health = ini_read_real("save0", "health", 5);
-health = global.max_health;
+global.bullet_power = ini_read_real("save0", "bulletpwr", 1);
+global.cycle_speed = ini_read_real("save0", "cyclespd", 10);
 ini_close();
+
+health = global.max_health;
 
 global.dist = 0;
 </string>

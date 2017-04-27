@@ -50,6 +50,10 @@ image_index = 0;
           <argument>
             <kind>1</kind>
             <string>// make invincible
+with (obj_cycle) {
+    invincible = true;
+    alarm[3] = global.powerup_length;
+}
 </string>
           </argument>
         </arguments>

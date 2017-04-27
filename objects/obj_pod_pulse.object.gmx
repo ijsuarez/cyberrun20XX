@@ -27,6 +27,8 @@
             <kind>1</kind>
             <string>event_inherited();
 pulse = 0;
+
+bullet_speed = 3;
 </string>
           </argument>
         </arguments>
@@ -53,7 +55,7 @@ pulse = 0;
     var bullet = instance_create(nozzle_xpos, nozzle_ypos, obj_bullet);
     
     with (bullet) {
-        bullet_speed = 3;
+        bullet_speed = other.bullet_speed;
         direction = other.angle + 180;
     }
     

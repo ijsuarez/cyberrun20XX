@@ -33,8 +33,8 @@ uni_iGlobalTime = shader_get_uniform(shd_glitch, "iGlobalTime");
 var_iGlobalTime_var = 0;
 
 uni_iResolution = shader_get_uniform(shd_glitch, "iResolution");
-var_iResolution_x = view_wview[0];
-var_iResolution_y = view_hview[0];
+var_iResolution_x = view_wview;
+var_iResolution_y = view_hview;
 
 glitch_speed[0] = 0.000001;
 glitch_speed[1] = 0.00001;
@@ -66,8 +66,8 @@ glitch_index = 0;
             <string>///Update
 var_iGlobalTime_var += global.time_passed * glitch_speed[glitch_index];
 
-var_iResolution_x = view_wview[0];
-var_iResolution_y = view_hview[0];
+var_iResolution_x = view_wview;
+var_iResolution_y = view_hview;
 </string>
           </argument>
         </arguments>

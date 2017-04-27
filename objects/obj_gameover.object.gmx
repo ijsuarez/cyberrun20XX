@@ -59,7 +59,11 @@ ini_close();
 draw_set_font(fnt_megrim);
 draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
-draw_text(view_wview/2, view_hview/2 - 36, "Game Over");
+if (global.dist &gt; global.best_dist) {
+    draw_text(view_wview/2, view_hview/2 - 36, "New Best Run!");
+} else {
+    draw_text(view_wview/2, view_hview/2 - 36, "Game Over");
+}
 draw_text(view_wview/2, view_hview/2, "Best Distance: " + string(max(global.best_dist, global.dist)) + "km");
 draw_text(view_wview/2, view_hview/2 + 36, "Press Space to Return to Title");
 </string>
@@ -85,7 +89,8 @@ draw_text(view_wview/2, view_hview/2 + 36, "Press Space to Return to Title");
           <argument>
             <kind>1</kind>
             <string>part_system_destroy(global.cycle_psystem);
-room_restart();
+
+room_goto(rm_main);
 </string>
           </argument>
         </arguments>

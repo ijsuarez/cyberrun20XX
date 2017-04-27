@@ -39,7 +39,36 @@ nozzle_ypos = y;
 
 can_fire = true;
 
+normal_rate = 15;
+normal_speed = 5;
+shot_rate = normal_rate;
+bullet_speed = normal_speed;
+
 fill_area = 51 * (health / global.max_health);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="1">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>shot_rate = normal_rate;
+bullet_speed = normal_speed;
 </string>
           </argument>
         </arguments>
@@ -138,23 +167,24 @@ fill_area = 51 * (health / global.max_health);
     var xdiff = mouse_x-x;
     var ydiff = mouse_y-y;
     var angle_target = -radtodeg(arctan2(ydiff,xdiff))
-    angle = lerp(angle, angle_target, 0.3);
+    angle = lerp(angle, angle_target, 0.5);
     
     nozzle_xpos = x + lengthdir_x(sprite_get_width(spr_gun), angle);
     nozzle_ypos = y + lengthdir_y(sprite_get_width(spr_gun), angle);
     
-    if (mouse_check_button(mb_right)) {
+    //if (mouse_check_button(mb_right)) {
         //hack
-    } else if (mouse_check_button(mb_left)) {
+    //} else if (mouse_check_button(mb_left)) {
+    if (mouse_check_button(mb_left) or mouse_check_button(mb_right)) {
         //shoot
         if (can_fire) {
             can_fire = false;
             var bullet = instance_create(nozzle_xpos, nozzle_ypos, obj_bullet_player);
             with (bullet) {
-                bullet_speed = 7;
+                bullet_speed = other.bullet_speed;
                 direction = other.angle;
             }
-            alarm[0] = 10;
+            alarm[0] = shot_rate;
         }
     }
 }

@@ -13,8 +13,7 @@ void main()
     fragCoord = in_Position.xy;
 }
 
-//######################_==_YOYO_SHADER_MARKER_==_######################@~//varying vec2 v_vTexcoord;
-varying vec2 fragCoord;
+//######################_==_YOYO_SHADER_MARKER_==_######################@~varying vec2 fragCoord;
 
 uniform sampler2D iNoise;
 uniform vec2      iResolution;
@@ -27,16 +26,11 @@ void main()
     vec2 uv = fragCoord.xy / iResolution.xy;
     vec2 block = floor(fragCoord.xy / vec2(16));
     vec2 uv_noise = block / vec2(64);
-    uv_noise += floor(vec2(iGlobalTime) * vec2(1234.0, 35433.0)) / vec2(64);
-    //uv_noise += floor(vec2(iGlobalTime) * vec2(11234.0, 25433.0)) / vec2(64);
+    uv_noise += floor(vec2(iGlobalTime) * vec2(1234.0, 35430.0)) / vec2(64);
     
     float block_thresh = pow(fract(iGlobalTime * 1236.0453), 2.0) * 0.2;
     float line_thresh = pow(fract(iGlobalTime * 2236.0453), 3.0) * 0.7;
     
-    //float block_thresh = pow(fract(iGlobalTime * 2.0453), 2.0) * 0.2;
-    //float line_thresh = pow(fract(iGlobalTime * 2.0453), 3.0) * 0.7;
-    
-    //vec2 uv_r = uv, uv_g = uv, uv_b = uv;
     vec2 uv_r = uv;
     vec2 uv_g = uv;
     vec2 uv_b = uv;
@@ -60,10 +54,6 @@ void main()
     if (texture2D(iNoise, uv_noise).g < block_thresh)
     {
         Color.rgb = Color.ggg;
-        
-        //Color.r = Color.g;
-        //Color.g = Color.g;
-        //Color.b = Color.g;
     }
     
     // discolor block lines

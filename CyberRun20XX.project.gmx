@@ -29,6 +29,7 @@
     <sprite>sprites\spr_mine</sprite>
     <sprite>sprites\spr_bullet</sprite>
     <sprite>sprites\spr_bullet_friendly</sprite>
+    <sprite>sprites\spr_bullet_friendly_lg</sprite>
     <sprite>sprites\spr_bullet_unblockable</sprite>
     <sprite>sprites\spr_pod_friendly</sprite>
     <sprite>sprites\spr_chip</sprite>
@@ -56,7 +57,6 @@
   <objects name="objects">
     <object>objects\obj_camera</object>
     <object>objects\obj_bg_manager</object>
-    <object>objects\obj_glitch_global</object>
     <object>objects\obj_glitch</object>
     <object>objects\obj_cycle</object>
     <object>objects\obj_control</object>
@@ -76,7 +76,7 @@
     <object>objects\obj_powerup</object>
     <object>objects\obj_powerup_invincible</object>
     <object>objects\obj_powerup_spd</object>
-    <object>objects\obj_powerup_laser</object>
+    <object>objects\obj_powerup_rateup</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_main</room>

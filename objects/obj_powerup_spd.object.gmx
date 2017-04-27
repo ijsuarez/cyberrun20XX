@@ -51,7 +51,7 @@ image_index = 1;
             <kind>1</kind>
             <string>// increase speed temporarily
 with (obj_bg_manager) {
-    scroll_speed_max += 15;
+    scroll_speed_max += 10;
     alarm[0] = global.powerup_length;
 }
 </string>

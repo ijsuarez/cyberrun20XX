@@ -38,9 +38,49 @@ spawn_type[0] = obj_pod;
 spawn_type[1] = obj_pod_pulse;
 spawn_type[2] = obj_pod;
 
-alarm[0] = (global.time_passed+1) * irandom_range(60, 120);
+alarm[0] = (global.time_passed+1) * irandom_range(120, 240);
 alarm[1] = (global.time_passed+1) * irandom_range(60, 120);
-alarm[2] = (global.time_passed+1) * irandom_range(100, 200);
+alarm[2] = (global.time_passed+1) * irandom_range(200, 500);
+alarm[3] = (global.time_passed+1) * irandom_range(400, 700);
+
+spawn_rate = 1;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="3">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Spawn powerup
+powerup_xpos = view_wview + 50;
+powerup_ypos = irandom_range(110, 600);
+
+var roll = irandom_range(0, 2);
+
+if (roll == 0) {
+    instance_create(powerup_xpos + 100, powerup_ypos, obj_powerup_invincible);
+} else if (roll == 1) {
+    instance_create(powerup_xpos + 100, powerup_ypos, obj_powerup_spd);
+} else if (roll == 2) {
+    instance_create(powerup_xpos + 100, powerup_ypos, obj_powerup_rateup);
+}
+
+alarm[3] = irandom_range(700, 1000);
 </string>
           </argument>
         </arguments>
@@ -67,11 +107,15 @@ alarm[2] = (global.time_passed+1) * irandom_range(100, 200);
 chip_xpos = view_wview + 50;
 chip_ypos = irandom_range(110, 600);
 
-for (var i = 0; i &lt; 5; i++) {
-    instance_create(chip_xpos + (100 * i), chip_ypos, obj_chip);
+var time = irandom_range(0, 360);
+for (var i = 0; i &lt; 3; i++) {
+    var chip = instance_create(chip_xpos + (100 * i), chip_ypos, obj_chip);
+    with (chip) {
+        t = time + (i * 30);
+    }
 }
 
-alarm[2] = irandom_range(100, 200);
+alarm[2] = irandom_range(500, 800);
 </string>
           </argument>
         </arguments>
@@ -115,7 +159,7 @@ if (!all_occupied) {
     global.lane_occupied[lane_index] = true;
 }
 
-alarm[1] = (global.time_passed+1)*irandom_range(60, 120);
+alarm[1] = (1/spawn_rate) * (global.time_passed+1)*irandom_range(60, 120);
 </string>
           </argument>
         </arguments>
@@ -142,13 +186,42 @@ alarm[1] = (global.time_passed+1)*irandom_range(60, 120);
 
 instance_create(view_wview + 100, 640, obj_mine);
 
-alarm[0] = (global.time_passed+1) * irandom_range(60, 120);
+alarm[0] = (1/spawn_rate) * (global.time_passed+1) * irandom_range(60, 120);
 </string>
           </argument>
         </arguments>
       </action>
     </event>
     <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if (!instance_exists(obj_cycle)) {
+    for (var i = 0; i &lt; 12; i++) {
+        if (alarm[i] &gt; 0) {
+            alarm[i] = -1;
+        }
+    }
+}
+
+spawn_rate += 0.00001;
+</string>
+          </argument>
+        </arguments>
+      </action>
       <action>
         <libid>1</libid>
         <id>601</id>
@@ -186,33 +259,6 @@ alarm[0] = (global.time_passed+1) * irandom_range(60, 120);
           <argument>
             <kind>0</kind>
             <string></string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>if (!instance_exists(obj_cycle)) {
-    for (var i = 0; i &lt; 12; i++) {
-        if (alarm[i] &gt; 0) {
-            alarm[i] = -1;
-        }
-    }
-}
-</string>
           </argument>
         </arguments>
       </action>
