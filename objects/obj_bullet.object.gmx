@@ -102,7 +102,7 @@ if (x &lt; -50 or x &gt; view_wview + 50 or y &lt; -50 or y &gt; view_hview + 50
           <argument>
             <kind>1</kind>
             <string>with (obj_cycle) {
-    if (!invincible) {
+    if (!invincible and !hit) {
         health--;
         hit = true;
     }

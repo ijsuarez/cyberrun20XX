@@ -3,7 +3,7 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>0</depth>
+  <depth>-100</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -25,36 +25,49 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>randomize();
+            <string>with (obj_pod_player) {
+    can_fire = false;
+}
 
-global.pause = false;
+items[0] = instance_create(view_wview/2-200, view_hview/2-100, obj_shop_item);
+items[1] = instance_create(view_wview/2+200, view_hview/2-100, obj_shop_item);
+items[2] = instance_create(view_wview/2-200, view_hview/2+100, obj_shop_item);
+items[3] = instance_create(view_wview/2+200, view_hview/2+100, obj_shop_item);
 
-global.spd = 100;
-global.time_passed = global.spd * delta_time / 1000000;
+display_chips = global.total_chips;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="1" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>with (obj_pod_player) {
+    can_fire = true;
+}
 
-global.glitch = false;
+for (var i = 0; i &lt; array_length_1d(items); i++) {
+    with (items[i]) {
+        instance_destroy();
+    }
+}
 
-winx = window_get_x();
-winy = window_get_y();
-
-instance_create(0, 0, obj_bg_manager);
-instance_create(0, 0, obj_glitch);
-instance_create(0, 0, obj_camera);
-
-global.chips = 0;
-
-ini_open("savedata.ini");
-global.total_chips = ini_read_real("save0", "chips", 0);
-global.best_dist = ini_read_real("save0", "score", 0);
-global.powerup_length = ini_read_real("save0", "pwrlen", 180);
-global.max_health = ini_read_real("save0", "health", 5);
-global.bullet_power = ini_read_real("save0", "bulletpwr", 1);
-global.cycle_speed = ini_read_real("save0", "cyclespd", 10);
-ini_close();
-
-health = global.max_health;
-
-global.dist = 0;
+instance_activate_object(obj_title);
 </string>
           </argument>
         </arguments>
@@ -77,22 +90,13 @@ global.dist = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (global.pause or winx != window_get_x() or winy != window_get_y() or
-    os_is_paused() or !window_has_focus() or delta_time &gt; 100000) {
-    winx = window_get_x();
-    winy = window_get_y();
-    global.spd = 0;
-} else if (!global.pause) {
-    global.spd = 100;
-}
-
-global.time_passed = global.spd * delta_time / 1000000;
+            <string>display_chips = floor(lerp(display_chips, global.total_chips, 0.05));
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="9" enumb="27">
+    <event eventtype="8" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -109,7 +113,45 @@ global.time_passed = global.spd * delta_time / 1000000;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>global.pause = !global.pause;
+            <string>draw_set_color($1e1e1e);
+draw_set_alpha(0.5);
+draw_rectangle(0, 0, view_wview, view_hview, false);
+draw_set_alpha(1);
+
+draw_set_font(fnt_megrim);
+draw_set_color($e1e1e1);
+draw_set_halign(fa_center);
+draw_set_valign(fa_middle);
+draw_text(view_wview/2, view_hview/10, "Augment Shop");
+
+draw_set_font(fnt_megrim_md);
+draw_set_halign(fa_left);
+draw_sprite(spr_chip, 0, view_wview/2 - 30, view_hview/6);
+var chip_str = "x " + string(display_chips);
+draw_text(view_wview/2, view_hview/6, chip_str);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="13">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>instance_destroy();
 </string>
           </argument>
         </arguments>

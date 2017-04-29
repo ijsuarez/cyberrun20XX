@@ -34,12 +34,14 @@
     <sprite>sprites\spr_pod_friendly</sprite>
     <sprite>sprites\spr_chip</sprite>
     <sprite>sprites\spr_powerup</sprite>
+    <sprite>sprites\spr_shop_item</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bg_floor</background>
     <background>background\bg_sky</background>
     <background>background\bg_skyline_farthest</background>
     <background>background\bg_skyline_far</background>
+    <background>background\bg_foreground</background>
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
@@ -77,6 +79,8 @@
     <object>objects\obj_powerup_invincible</object>
     <object>objects\obj_powerup_spd</object>
     <object>objects\obj_powerup_rateup</object>
+    <object>objects\obj_shop_manager</object>
+    <object>objects\obj_shop_item</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_main</room>

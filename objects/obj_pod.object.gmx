@@ -52,6 +52,55 @@ fill_area = 51 * health / global.max_health;
           </argument>
         </arguments>
       </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Particles
+
+particle_smoke = part_type_create();
+part_type_shape(particle_smoke,pt_shape_explosion);
+part_type_size(particle_smoke,0.7,0.8,0,0);
+part_type_scale(particle_smoke,1,1);
+part_type_color2(particle_smoke,8421504,12632256);
+part_type_alpha1(particle_smoke,1);
+part_type_speed(particle_smoke,2,2,0,0);
+part_type_direction(particle_smoke,0,359,0,0);
+part_type_gravity(particle_smoke,0,270);
+part_type_orientation(particle_smoke,0,0,0,0,1);
+part_type_blend(particle_smoke,1);
+part_type_life(particle_smoke,15,20);
+emitter_smoke = part_emitter_create(global.cycle_psystem);
+
+particle_sparks = part_type_create();
+part_type_shape(particle_sparks,pt_shape_line);
+part_type_size(particle_sparks,0.4,0.4,0,0);
+part_type_scale(particle_sparks,1,1);
+part_type_color2(particle_sparks,4227327,65535);
+part_type_alpha1(particle_sparks,1);
+part_type_speed(particle_sparks,40,40,0,0);
+part_type_direction(particle_sparks,0,359,0,0);
+part_type_gravity(particle_sparks,0,270);
+part_type_orientation(particle_sparks,0,0,0,0,1);
+part_type_blend(particle_sparks,1);
+part_type_life(particle_sparks,30,30);
+emitter_spark = part_emitter_create(global.cycle_psystem);
+</string>
+          </argument>
+        </arguments>
+      </action>
     </event>
     <event eventtype="1" enumb="0">
       <action>
@@ -72,6 +121,14 @@ fill_area = 51 * health / global.max_health;
             <kind>1</kind>
             <string>global.lane_occupied[lane_index] = false;
 audio_play_sound(snd_explode, 0, false);
+
+part_emitter_region(global.cycle_psystem,emitter_smoke,x-25,x+25,y-25,y+25,ps_shape_ellipse,irandom_range(30, 40));
+part_emitter_burst(global.cycle_psystem,emitter_smoke,particle_smoke,10);
+part_emitter_region(global.cycle_psystem,emitter_spark,x-25,x+25,y-25,y+25,ps_shape_ellipse,irandom_range(50, 60));
+part_emitter_burst(global.cycle_psystem,emitter_spark,particle_sparks,30);
+
+part_emitter_destroy(global.cycle_psystem, emitter_smoke);
+part_emitter_destroy(global.cycle_psystem, emitter_spark);
 </string>
           </argument>
         </arguments>
