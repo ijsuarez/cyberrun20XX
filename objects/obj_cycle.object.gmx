@@ -38,6 +38,7 @@ vsp = 0;
 can_act = false;
 key_jump = false;
 invincible = false;
+counter = 0;
 
 has_started = false;
 
@@ -419,6 +420,7 @@ with (other) {
           <argument>
             <kind>1</kind>
             <string>if (!invincible) {
+    audio_play_sound(snd_damage, 0, false);
     health -= 3;
     hit = true;
 }
@@ -449,7 +451,14 @@ with (other) {
             <kind>1</kind>
             <string>draw_sprite_ext(spr_cycle_shadow, 0, x, y + 2*height_diff, 1, 1, -image_angle, c_white, 0.8);
 
-if (hit) {
+if (invincible) {
+    counter = (counter + 1) % 5;
+    if (counter == 0) {
+        draw_sprite_ext(spr_cycle, 1, x, y, 1, 1, image_angle, c_white, 1);
+    } else {
+        draw_sprite_ext(spr_cycle, 0, x, y, 1, 1, image_angle, c_white, 1);
+    }
+} else if (hit) {
     draw_sprite_ext(spr_cycle, 1, x, y, 1, 1, image_angle, c_white, 1);
     
     if (alarm[1] &lt;= 0) {

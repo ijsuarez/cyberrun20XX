@@ -14,6 +14,10 @@
     <sound>sound\snd_shot</sound>
     <sound>sound\snd_hit</sound>
     <sound>sound\snd_coin</sound>
+    <sound>sound\snd_powerup</sound>
+    <sound>sound\snd_purchase</sound>
+    <sound>sound\snd_error</sound>
+    <sound>sound\snd_damage</sound>
   </sounds>
   <sprites name="sprites">
     <sprite>sprites\tex_glitch</sprite>
@@ -29,12 +33,26 @@
     <sprite>sprites\spr_mine</sprite>
     <sprite>sprites\spr_bullet</sprite>
     <sprite>sprites\spr_bullet_friendly</sprite>
+    <sprite>sprites\spr_bullet_friendly_sm</sprite>
+    <sprite>sprites\spr_bullet_friendly_md</sprite>
     <sprite>sprites\spr_bullet_friendly_lg</sprite>
     <sprite>sprites\spr_bullet_unblockable</sprite>
     <sprite>sprites\spr_pod_friendly</sprite>
     <sprite>sprites\spr_chip</sprite>
     <sprite>sprites\spr_powerup</sprite>
     <sprite>sprites\spr_shop_item</sprite>
+    <sprite>sprites\spr_shop_health</sprite>
+    <sprite>sprites\spr_shop_speed</sprite>
+    <sprite>sprites\spr_shop_rate</sprite>
+    <sprite>sprites\spr_shop_size</sprite>
+    <sprite>sprites\spr_back_txt</sprite>
+    <sprite>sprites\spr_start_txt</sprite>
+    <sprite>sprites\spr_shop_txt</sprite>
+    <sprite>sprites\spr_controls_txt</sprite>
+    <sprite>sprites\spr_credits_txt</sprite>
+    <sprite>sprites\spr_box</sprite>
+    <sprite>sprites\spr_controls</sprite>
+    <sprite>sprites\spr_credits</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bg_floor</background>
@@ -47,6 +65,7 @@
   <scripts name="scripts">
     <script>scripts\scr_get_bottom_pt.gml</script>
     <script>scripts\scr_alarm_manager.gml</script>
+    <script>scripts\scr_set_levels.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\shd_glitch.shader</shader>
@@ -54,6 +73,7 @@
   <fonts name="fonts">
     <font>fonts\fnt_megrim</font>
     <font>fonts\fnt_megrim_md</font>
+    <font>fonts\fnt_megrim_shop</font>
     <font>fonts\fnt_megrim_sm</font>
   </fonts>
   <objects name="objects">
@@ -81,6 +101,21 @@
     <object>objects\obj_powerup_rateup</object>
     <object>objects\obj_shop_manager</object>
     <object>objects\obj_shop_item</object>
+    <object>objects\obj_shop_health</object>
+    <object>objects\obj_shop_speed</object>
+    <object>objects\obj_shop_rate</object>
+    <object>objects\obj_shop_size</object>
+    <object>objects\obj_btn</object>
+    <object>objects\obj_btn_back</object>
+    <object>objects\obj_btn_back_controls</object>
+    <object>objects\obj_btn_back_credits</object>
+    <object>objects\obj_btn_start</object>
+    <object>objects\obj_btn_shop</object>
+    <object>objects\obj_btn_controls</object>
+    <object>objects\obj_btn_credits</object>
+    <object>objects\obj_bg_box</object>
+    <object>objects\obj_controls</object>
+    <object>objects\obj_credits</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_main</room>

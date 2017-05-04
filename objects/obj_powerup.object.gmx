@@ -27,7 +27,7 @@
             <kind>1</kind>
             <string>image_speed = 0;
 
-powerup_speed = -(obj_bg_manager.scroll_speed - 7);
+powerup_speed = -3;
 
 t = irandom_range(0, 360);
 increment = 4;
@@ -73,6 +73,7 @@ emitter_chip = part_emitter_create(chip_psystem);
           <argument>
             <kind>1</kind>
             <string>part_system_destroy(chip_psystem);
+audio_play_sound(snd_powerup, 0, false);
 </string>
           </argument>
         </arguments>
@@ -107,9 +108,14 @@ if (x &lt; -50) {
     instance_destroy();
 }
 
-part_emitter_region(chip_psystem,emitter_chip,x-sprite_get_width(spr_powerup),x+sprite_get_width(spr_powerup),
-                    y,y+sprite_get_height(spr_powerup),ps_shape_ellipse,2);
-part_emitter_burst(chip_psystem,emitter_chip,particle_chip,1);
+if (!global.pause) {
+    part_system_automatic_update(chip_psystem, true);
+    part_emitter_region(chip_psystem,emitter_chip,x-sprite_get_width(spr_powerup),x+sprite_get_width(spr_powerup),
+                        y,y+sprite_get_height(spr_powerup),ps_shape_ellipse,2);
+    part_emitter_burst(chip_psystem,emitter_chip,particle_chip,1);
+} else {
+    part_system_automatic_update(chip_psystem, false);
+}
 </string>
           </argument>
         </arguments>

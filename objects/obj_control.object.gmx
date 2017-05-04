@@ -46,13 +46,16 @@ global.chips = 0;
 ini_open("savedata.ini");
 global.total_chips = ini_read_real("save0", "chips", 0);
 global.best_dist = ini_read_real("save0", "score", 0);
-global.powerup_length = ini_read_real("save0", "pwrlen", 180);
-global.max_health = ini_read_real("save0", "health", 5);
-global.bullet_power = ini_read_real("save0", "bulletpwr", 1);
-global.cycle_speed = ini_read_real("save0", "cyclespd", 10);
+global.health_level = ini_read_real("save0", "health_level", 0);
+global.speed_level = ini_read_real("save0", "speed_level", 0);
+global.rate_level = ini_read_real("save0", "rate_level", 0);
+global.size_level = ini_read_real("save0", "size_level", 0);
 ini_close();
 
+scr_set_levels();
+
 health = global.max_health;
+global.powerup_length = 360;
 
 global.dist = 0;
 </string>
@@ -109,7 +112,9 @@ global.time_passed = global.spd * delta_time / 1000000;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>global.pause = !global.pause;
+            <string>if (!instance_exists(obj_title)) {
+    global.pause = !global.pause;
+}
 </string>
           </argument>
         </arguments>

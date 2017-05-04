@@ -44,6 +44,8 @@ normal_speed = 5;
 shot_rate = normal_rate;
 bullet_speed = normal_speed;
 
+counter = 0;
+
 fill_area = 51 * (health / global.max_health);
 </string>
           </argument>
@@ -213,11 +215,27 @@ bullet_speed = normal_speed;
             <string>var percent_health = health / global.max_health;
 fill_area = lerp(fill_area, 51 * percent_health, 0.2);
 
-if (obj_cycle.hit) {
+if (bullet_speed &gt; normal_speed) {
+    counter = (counter + 1) % 5;
+    if (counter == 0) {
+        draw_sprite_ext(spr_gun_friendly, 1, x, y, 1, 1, angle, c_white, 1);
+        draw_sprite(spr_pod_friendly, 1, x, y);
+    } else {
+        draw_sprite_ext(spr_gun_friendly, 0, x, y, 1, 1, angle, c_white, 1);
+        draw_sprite(spr_pod_friendly, 0, x, y);
+    }
+    draw_set_color(c_white);
+    draw_rectangle(x-17, y-20, x-13, y-70, true);
+    if (percent_health &gt; 0.5) {
+        draw_set_color(make_color_rgb(255 * 2*(0.5-(percent_health-0.5)), 255, 0));
+    } else {
+        draw_set_color(make_color_rgb(255, 255 * 2*percent_health, 0));
+    }
+} else if (obj_cycle.hit) {
     draw_sprite_ext(spr_gun_friendly, 1, x, y, 1, 1, angle, c_white, 1);
     draw_sprite(spr_pod_friendly, 1, x, y);
     draw_set_color(c_white);
-draw_rectangle(x-17, y-20, x-13, y-70, true);
+    draw_rectangle(x-17, y-20, x-13, y-70, true);
 } else {
     draw_sprite_ext(spr_gun_friendly, 0, x, y, 1, 1, angle, c_white, 1);
     draw_sprite(spr_pod_friendly, 0, x, y);

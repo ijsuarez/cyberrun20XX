@@ -29,10 +29,12 @@
     can_fire = false;
 }
 
-items[0] = instance_create(view_wview/2-200, view_hview/2-100, obj_shop_item);
-items[1] = instance_create(view_wview/2+200, view_hview/2-100, obj_shop_item);
-items[2] = instance_create(view_wview/2-200, view_hview/2+100, obj_shop_item);
-items[3] = instance_create(view_wview/2+200, view_hview/2+100, obj_shop_item);
+items[0] = instance_create(view_wview/2-200, view_hview/2-100, obj_shop_health);
+items[1] = instance_create(view_wview/2+200, view_hview/2-100, obj_shop_speed);
+items[2] = instance_create(view_wview/2-200, view_hview/2+100, obj_shop_size);
+items[3] = instance_create(view_wview/2+200, view_hview/2+100, obj_shop_rate);
+
+back_btn = instance_create(view_wview/2, 5*view_hview/6, obj_btn_back);
 
 display_chips = global.total_chips;
 </string>
@@ -67,7 +69,16 @@ for (var i = 0; i &lt; array_length_1d(items); i++) {
     }
 }
 
+with (obj_btn_back) {
+    instance_destroy();
+}
+
 instance_activate_object(obj_title);
+instance_activate_object(obj_bg_box);
+instance_activate_object(obj_btn_start);
+instance_activate_object(obj_btn_shop);
+instance_activate_object(obj_btn_controls);
+instance_activate_object(obj_btn_credits);
 </string>
           </argument>
         </arguments>
@@ -129,29 +140,6 @@ draw_set_halign(fa_left);
 draw_sprite(spr_chip, 0, view_wview/2 - 30, view_hview/6);
 var chip_str = "x " + string(display_chips);
 draw_text(view_wview/2, view_hview/6, chip_str);
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="9" enumb="13">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>instance_destroy();
 </string>
           </argument>
         </arguments>

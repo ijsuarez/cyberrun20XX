@@ -27,7 +27,36 @@
             <kind>1</kind>
             <string>image_speed = 0;
 
-price = 0;
+level = 0;
+max_level = 5;
+price[0] = 0;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if (level == max_level) {
+    image_index = 2;
+} else if (global.total_chips &lt; price[level]) {
+    image_index = 3;
+}
 </string>
           </argument>
         </arguments>
@@ -73,10 +102,8 @@ price = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (global.total_chips &gt;= price) {
+            <string>if (level != max_level and global.total_chips &gt;= price[level]) {
     image_index = 1;
-} else {
-    image_index = 3;
 }
 </string>
           </argument>
@@ -100,18 +127,19 @@ price = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (global.total_chips &gt;= price) {
-    global.total_chips -= price;
+            <string>if (level != max_level and global.total_chips &gt;= price[level]) {
+    global.total_chips -= price[level];
+    audio_play_sound(snd_purchase, 0, false);
     event_user(0);
     ini_open("savedata.ini");
     ini_write_real("save0", "chips", global.total_chips);
     ini_close();
+} else {
+    audio_play_sound(snd_error, 0, false);
 }
 
-if (global.total_chips &gt;= price) {
+if (level != max_level and global.total_chips &gt;= price[level]) {
     image_index = 1;
-} else {
-    image_index = 3;
 }
 </string>
           </argument>
@@ -135,8 +163,68 @@ if (global.total_chips &gt;= price) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (global.total_chips &gt;= price) {
+            <string>if (level != max_level and global.total_chips &gt;= price[level]) {
     image_index = 2;
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>var origin_x = x - sprite_xoffset;
+var origin_y = y - sprite_yoffset;
+
+draw_self();
+
+if (level &lt; max_level) {
+    var level_str = "Lv. " + string(level);
+    var price_str = "x " + string(price[level]);
+} else {
+    var level_str = "Lv. MAX";
+    var price_str = "x ---";
+}
+
+if (image_index == 0) {
+    draw_set_color($e1e1e1);
+} else if (image_index == 1) {
+    draw_set_color($96bfd2);
+} else if (image_index == 2) {
+    draw_set_color($449658);
+} else if (image_index == 3) {
+    draw_set_color($6f62ec);
+}
+
+draw_set_font(fnt_megrim_shop);
+draw_set_halign(fa_left);
+draw_set_valign(fa_bottom);
+draw_text(origin_x+115,origin_y+90, level_str);
+draw_text(origin_x+242,origin_y+90, price_str);
+
+var progress_length = 264;
+var segment_length = progress_length/max_level - 6;
+for (var i = 0; i &lt; max_level; i++) {
+    if (i &lt; level) {
+        draw_rectangle(origin_x+23+(i*(segment_length+6)), origin_y+116, origin_x+23+(i*(segment_length+6))+segment_length, origin_y+126, false);
+    } else {
+        draw_rectangle(origin_x+23+(i*(segment_length+6)), origin_y+116, origin_x+23+(i*(segment_length+6))+segment_length, origin_y+126, true);
+    }
 }
 </string>
           </argument>

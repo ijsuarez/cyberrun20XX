@@ -45,8 +45,8 @@ x_offset = -view_wview/2;
 ref_point = 0;
 
 scroll_base_speed = 1000;
-scroll_speed_set = 10;
 scroll_speed_max = 10;
+scroll_speed_set = scroll_speed_max;
 scroll_speed = 0;
 </string>
           </argument>
@@ -160,11 +160,7 @@ for (var i = 0; background_visible[i]; i++) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (keyboard_check_pressed(vk_space)) {
-    scroll = true;
-}
-
-if (scroll and !global.pause) {
+            <string>if (scroll and !global.pause) {
     scroll_speed = (global.spd / 100) * lerp(scroll_speed, scroll_speed_max, 0.05);
     ref_point = (ref_point + scroll_speed) % fence_width;
 }
