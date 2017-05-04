@@ -216,7 +216,7 @@ bullet_speed = normal_speed;
 fill_area = lerp(fill_area, 51 * percent_health, 0.2);
 
 if (bullet_speed &gt; normal_speed) {
-    counter = (counter + 1) % 5;
+    counter = (counter + 1) % 10;
     if (counter == 0) {
         draw_sprite_ext(spr_gun_friendly, 1, x, y, 1, 1, angle, c_white, 1);
         draw_sprite(spr_pod_friendly, 1, x, y);

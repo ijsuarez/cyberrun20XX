@@ -106,7 +106,7 @@ draw_set_font(fnt_megrim_md);
 draw_text(x, y + sprite_height/2 + 18, '--Escape from Cyber City--');
 
 draw_set_font(fnt_megrim_sm);
-draw_text(x, y + sprite_height/2 + 46, 'Version 1.0.0');
+draw_text(x, y + sprite_height/2 + 46, 'Version 1.0.1');
 
 draw_set_font(fnt_megrim);
 draw_text(x, view_hview - 30, "Best Distance: " + string(global.best_dist) + "km");

@@ -19,19 +19,19 @@ if (global.speed_level == 0) {
     }
 } else if (global.speed_level == 1) {
     with (obj_bg_manager) {
-        scroll_speed_max = 15;
+        scroll_speed_max = 12.5;
     }
 } else if (global.speed_level == 2) {
     with (obj_bg_manager) {
-        scroll_speed_max = 20;
+        scroll_speed_max = 15;
     }
 } else if (global.speed_level == 3) {
     with (obj_bg_manager) {
-        scroll_speed_max = 25;
+        scroll_speed_max = 17.5;
     }
 } else if (global.speed_level == 4) {
     with (obj_bg_manager) {
-        scroll_speed_max = 30;
+        scroll_speed_max = 20;
     }
 }
 with (obj_bg_manager) {
@@ -55,18 +55,18 @@ if (global.rate_level == 0) {
     }
 } else if (global.rate_level == 1) {
     with (obj_pod_player) {
-        normal_rate = 12;
-        normal_speed = 7;
+        normal_rate = 13;
+        normal_speed = 6;
     }
 } else if (global.rate_level == 2) {
     with (obj_pod_player) {
-        normal_rate = 9;
-        normal_speed = 9;
+        normal_rate = 11;
+        normal_speed = 7;
     }
 } else if (global.rate_level == 3) {
     with (obj_pod_player) {
-        normal_rate = 6;
-        normal_speed = 11;
+        normal_rate = 9;
+        normal_speed = 8;
     }
 }
 with (obj_pod_player) {

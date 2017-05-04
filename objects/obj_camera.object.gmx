@@ -29,7 +29,7 @@
 camera_y = view_yview;
 
 shake = false;
-shake_intensity = 5;
+shake_intensity = 10;
 </string>
           </argument>
         </arguments>

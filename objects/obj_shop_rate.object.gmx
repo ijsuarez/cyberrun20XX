@@ -30,9 +30,9 @@
 level = global.rate_level;
 max_level = 3;
 
-price[0] = 40;
-price[1] = 80;
-price[2] = 160;
+price[0] = 50;
+price[1] = 150;
+price[2] = 300;
 </string>
           </argument>
         </arguments>

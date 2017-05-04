@@ -32,13 +32,13 @@ global.pause = false;
 global.spd = 100;
 global.time_passed = global.spd * delta_time / 1000000;
 
-global.glitch = false;
+//global.glitch = false;
 
 winx = window_get_x();
 winy = window_get_y();
 
 instance_create(0, 0, obj_bg_manager);
-instance_create(0, 0, obj_glitch);
+//instance_create(0, 0, obj_glitch);
 instance_create(0, 0, obj_camera);
 
 global.chips = 0;

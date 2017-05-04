@@ -33,10 +33,11 @@ lane_ypos[1] = 5 * room_height / 9;
 for (var i = 0; i &lt; 2; i++) {
     global.lane_occupied[i] = false;
 }
+one_occupied = false;
 
 spawn_type[0] = obj_pod;
 spawn_type[1] = obj_pod_pulse;
-spawn_type[2] = obj_pod;
+spawn_type[2] = obj_pod_stream;
 
 alarm[0] = (global.time_passed+1) * irandom_range(120, 240);
 alarm[1] = (global.time_passed+1) * irandom_range(60, 120);
@@ -70,13 +71,13 @@ spawn_rate = 1;
 powerup_xpos = view_wview + 50;
 powerup_ypos = irandom_range(110, 600);
 
-var roll = irandom_range(0, 2);
+var rng = irandom_range(0, 100);
 
-if (roll == 0) {
+if (rng &lt; 40) {
     instance_create(powerup_xpos + 100, powerup_ypos, obj_powerup_invincible);
-} else if (roll == 1) {
+} else if (rng &lt; 80) {
     instance_create(powerup_xpos + 100, powerup_ypos, obj_powerup_spd);
-} else if (roll == 2) {
+} else {
     instance_create(powerup_xpos + 100, powerup_ypos, obj_powerup_rateup);
 }
 
@@ -108,14 +109,24 @@ chip_xpos = view_wview + 50;
 chip_ypos = irandom_range(110, 600);
 
 var time = irandom_range(0, 360);
-for (var i = 0; i &lt; 3; i++) {
+for (var i = 0; i &lt; 4; i++) {
     var chip = instance_create(chip_xpos + (100 * i), chip_ypos, obj_chip);
     with (chip) {
         t = time + (i * 30);
     }
 }
 
-alarm[2] = irandom_range(500, 800);
+if (global.speed_level == 0) {
+    alarm[2] = irandom_range(500, 800);
+} else if (global.speed_level == 1) {
+    alarm[2] = irandom_range(500, 750);
+} else if (global.speed_level == 2) {
+    alarm[2] = irandom_range(500, 700);
+} else if (global.speed_level == 3) {
+    alarm[2] = irandom_range(450, 700);
+} else if (global.speed_level == 4) {
+    alarm[2] = irandom_range(450, 650);
+}
 </string>
           </argument>
         </arguments>
@@ -140,26 +151,77 @@ alarm[2] = irandom_range(500, 800);
             <kind>1</kind>
             <string>///Spawn pod
 var all_occupied = true;
+var one_occupied = false;
+var none_occupided = false;
 for (var i = 0; i &lt; array_length_1d(global.lane_occupied); i++) {
     all_occupied = all_occupied and global.lane_occupied[i];
 }
+none_occupied = !(global.lane_occupied[0] or global.lane_occupied[1]);
+one_occupied = (global.lane_occupied[0] and !global.lane_occupied[1]) or
+               (!global.lane_occupied[0] and global.lane_occupied[1]);
 
-if (!all_occupied) {
+if (!all_occupied and !instance_exists(obj_pod_stream)) {
     lane_index = irandom_range(0, array_length_1d(global.lane_occupied)-1);
     while (global.lane_occupied[lane_index]) {
         lane_index = irandom_range(0, array_length_1d(global.lane_occupied)-1); //lol this is a dumb way to do it
     }
     //spawn
-    var spawn_index = irandom_range(0, array_length_1d(spawn_type)-1);
-    var pod = instance_create(room_width + 100, lane_ypos[lane_index], spawn_type[spawn_index]);
+    var spawn_rng = irandom_range(0, 100);
+    
+    if (global.dist &lt; 20) {
+        var spawn_index = 0;
+    } else if (global.dist &lt; 50) {
+        if ((one_occupied or none_occupied) and spawn_rng &lt; 20) {
+            var spawn_index = 2;
+        } else if (spawn_rng &lt; 80) {
+            var spawn_index = 0;
+        } else {
+            var spawn_index = 1;
+        }
+    } else if (global.dist &lt; 100) {
+        if ((one_occupied or none_occupied) and spawn_rng &lt; 20) {
+            var spawn_index = 2;
+        } else if (spawn_rng &lt; 50) {
+            var spawn_index = 0;
+        } else {
+            var spawn_index = 1;
+        }
+    } else {
+        if ((one_occupied or none_occupied) and spawn_rng &lt; 33) {
+            var spawn_index = 2;
+        } else if (spawn_rng &lt; 40) {
+            var spawn_index = 0;
+        } else {
+            var spawn_index = 1;
+        }
+    }
+    
+    if (spawn_index == 2) {
+        var mid_ypos = (lane_ypos[0] + lane_ypos[1])/2;
+        var pod = instance_create(room_width + 100, mid_ypos, spawn_type[spawn_index]);
+    } else {
+        var pod = instance_create(room_width + 100, lane_ypos[lane_index], spawn_type[spawn_index]);
+        global.lane_occupied[lane_index] = true;
+    }
     with (pod) {
         target_xpos = other.lane_xpos;
         lane_index = other.lane_index;
     }
+    //global.lane_occupied[lane_index] = true;
+} else if (instance_exists(obj_pod_stream) and !one_occupied) {
+    lane_index = irandom_range(0, array_length_1d(global.lane_occupied)-1);
+    while (global.lane_occupied[lane_index]) {
+        lane_index = irandom_range(0, array_length_1d(global.lane_occupied)-1); //lol this is a dumb way to do it
+    }
+    var pod = instance_create(room_width+100, lane_ypos[lane_index], spawn_type[0]);
     global.lane_occupied[lane_index] = true;
+    with (pod) {
+        target_xpos = other.lane_xpos;
+        lane_index = other.lane_index;
+    }
 }
 
-alarm[1] = (1/spawn_rate) * (global.time_passed+1)*irandom_range(60, 120);
+alarm[1] = (1/spawn_rate) * (global.time_passed+1)*irandom_range(80, 150);
 </string>
           </argument>
         </arguments>

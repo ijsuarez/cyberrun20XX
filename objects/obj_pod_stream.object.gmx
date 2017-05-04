@@ -27,7 +27,7 @@
             <kind>1</kind>
             <string>event_inherited();
 
-bullet_speed = 5;
+bullet_speed = 1.5;
 </string>
           </argument>
         </arguments>
@@ -57,7 +57,7 @@ with (bullet) {
     direction = other.angle + 180;
 }
 
-alarm[0] = 30;
+alarm[0] = 20;
 </string>
           </argument>
         </arguments>

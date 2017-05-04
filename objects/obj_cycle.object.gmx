@@ -53,6 +53,8 @@ with (pod) {
 
 image_speed = 0;
 hit = false;
+
+scr_set_levels();
 </string>
           </argument>
         </arguments>
@@ -184,7 +186,7 @@ with (pod) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>global.glitch = false;
+            <string>//global.glitch = false;
 </string>
           </argument>
         </arguments>
@@ -452,7 +454,7 @@ with (other) {
             <string>draw_sprite_ext(spr_cycle_shadow, 0, x, y + 2*height_diff, 1, 1, -image_angle, c_white, 0.8);
 
 if (invincible) {
-    counter = (counter + 1) % 5;
+    counter = (counter + 1) % 10;
     if (counter == 0) {
         draw_sprite_ext(spr_cycle, 1, x, y, 1, 1, image_angle, c_white, 1);
     } else {
@@ -467,11 +469,12 @@ if (invincible) {
             shake = true;
         }
     }
-    
+    /*
     if (alarm[2] &lt;= 0) {
         global.glitch = true;
         alarm[2] = 60;
     }
+    */
 } else {
     draw_sprite_ext(spr_cycle, 0, x, y, 1, 1, image_angle, c_white, 1);
 }
